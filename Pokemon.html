@@ -1,0 +1,62 @@
+<!-- "pokeapi.co/media/sprites/pokemon/1.png"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Pokedex</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function pokemon(){
+            var apiString = "http://pokeapi.co/media/sprites/pokemon/";
+            var htmlString = "";
+            for(var i =1; i<152; i++){
+                apiString = "http://pokeapi.co/media/sprites/pokemon/";
+                apiString +=i+".png";
+                htmlString +="<img id="+i+" class='pokemon' src="+apiString+">";
+            }
+            return htmlString;
+        }
+        function pokedex(id){
+            var apiString =  "https://pokeapi.co/api/v2/pokemon/"+id;
+            var htmlString = "";
+        }
+        $(document).ready(function(){
+            $('.list').append(pokemon());
+
+            $(document).on('click', '.pokemon', function(){
+                $('.pokedex').empty();
+                var pokeId = $(this).attr("id");
+                $.get("https://pokeapi.co/api/v2/pokemon/"+pokeId, function(res){
+                    var name = res.name;
+                    var height = res.height;
+                    var weight = res.weight;
+                    var typeOne = "";
+                    var typeTwo = "";
+                    for(var i = 0;i<res.types.length;i++){
+                        var typeOne = res.types[i].name;
+                        
+                    }
+                    var htmlString = "<p>"+name+"</p><img src='http://pokeapi.co/media/sprites/pokemon/'"+pokeId+".png><p>Types</p><ul><li>"+
+                        typeOne+"</li><li>"+typeTwo+"</li></ul><p>Height<p>"+height+"<p>Weight</p>"+weigh
+;                   $('.pokedex').append(htmlString);
+                }, "json");
+                
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class='container'>
+        <div class="list">
+
+        </div>
+        <div class="pokedex">
+
+        </div>
+    </div>
+    
+</body>
+</html>
