@@ -29,19 +29,31 @@
             $(document).on('click', '.pokemon', function(){
                 $('.pokedex').empty();
                 var pokeId = $(this).attr("id");
-                $.get("https://pokeapi.co/api/v2/pokemon/"+pokeId, function(res){
+                $.get("https://pokeapi.co/api/v2/pokemon/"+pokeId+"/", function(res){
                     var name = res.name;
                     var height = res.height;
                     var weight = res.weight;
-                    var typeOne = "";
-                    var typeTwo = "";
-                    for(var i = 0;i<res.types.length;i++){
-                        var typeOne = res.types[i].name;
-                        
+                    var typeOne = res.types[0].type.name;
+                    //if types object has no second element, type two is set to undefined
+                    if(typeof res.types[1] == undefined){
+                        var typeTwo = res.types[1].type.name;
                     }
-                    var htmlString = "<p>"+name+"</p><img src='http://pokeapi.co/media/sprites/pokemon/'"+pokeId+".png><p>Types</p><ul><li>"+
-                        typeOne+"</li><li>"+typeTwo+"</li></ul><p>Height<p>"+height+"<p>Weight</p>"+weigh
-;                   $('.pokedex').append(htmlString);
+                    else {
+                        typeTwo = undefined;
+                    }
+                    var htmlString="";
+                    console.log(typeTwo);
+                    
+                    //if type two is undefined create html string with only one type
+                    if(typeTwo == undefined){
+                    var htmlString = "<p>"+name+"</p><img src='http://pokeapi.co/media/sprites/pokemon/"+pokeId+".png'><p>Types</p><ul><li>"+
+                        typeOne+"</li></ul><p>Height</p>"+height+"<p>Weight</p>"+weight;
+                    }
+                    else{
+                    var htmlString = "<p>"+name+"</p><img src='http://pokeapi.co/media/sprites/pokemon/"+pokeId+".png'><p>Types</p><ul><li>"+
+                        typeOne+"</li><li>"+typeTwo+"</li></ul><span>Height</span>"+height+"<span>Weight</span>"+weight;
+                    }
+                  $('.pokedex').append(htmlString);
                 }, "json");
                 
             })

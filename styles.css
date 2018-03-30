@@ -2,13 +2,35 @@
     padding:0;
     margin:0;
 }
+.container{
+    display:inline-block
+}
 .pokedex{
-    position: sticky;
+    position: fixed;
     border: 5px solid red;
     height: 400px;
-    width: 20%;
+    width: 170px;
     margin-left: 800px;
+    display: inline-block;
+    vertical-align: top;
+    top:0;
+    
+}
+.pokedex p{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+.pokedex img{
+    text-align: center;
 }
 .list{
-    width:75%;
+    width:750px;
+    display:inline-block;
+}
+ul{
+    padding-left: 20px;
+}
+li{
+    padding-left:10px;
 }
